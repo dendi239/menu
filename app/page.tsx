@@ -1,9 +1,7 @@
 "use client";
 
 import { getDishes, Dish } from '@/lib/api';
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
-
 
 function DishMenuItem({ dish }: { dish: Dish; }) {
   return (
@@ -18,7 +16,7 @@ function DishMenuItem({ dish }: { dish: Dish; }) {
   )
 }
 
-export default function MyHome({ children }: { children: React.ReactNode }) {
+export default function Page() {
   const [dishes, setDishes] = useState<Dish[]>([]);
   
   useEffect(() => {
@@ -31,7 +29,6 @@ export default function MyHome({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <h1>Hello, Maryna</h1>
-      {children}
       <ul className="dish-list">{
         Array.from(dishes.entries()).map(([i, dish]) =>
           <DishMenuItem key={i} dish={dish} />

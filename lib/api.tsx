@@ -2,7 +2,7 @@
 
 import { Client } from "@notionhq/client"
 
-const NOTION_KEY = "secret_TBrHNFurY2CMEeCubgUT4z4M1O1ba5hrJHj3tGZUytH";
+const NOTION_KEY = process.env.NOTION_KEY;
 const MENU_DATABASE_ID = "e87c01ab-fb0a-477c-a18b-c3345950f6c2";
 
 const notion = new Client({
@@ -12,24 +12,10 @@ const notion = new Client({
 export type Dish = {
   name: string,
   ingridients: Array<string>,
-  imageURL: string,
+  imageURL: string | undefined,
   description: string,
 }
 
-const dishes: Array<Dish> = [
-  {
-    name: "Pasta",
-    ingridients: ["pasta", "mushrooms", "chicken", "salt", "pepper", "cream"],
-    description: "Delisious pasta with simple yet sour creamy sauce with chicken and mushrooms in it.",
-    imageURL: "https://images.unsplash.com/photo-1662197480393-2a82030b7b83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=70"
-  },
-  {
-    name: "Curry",
-    ingridients: ["curry sauce", "coconut milk", "pineapple bits", "chicken"],
-    description: "Wonderful taste of eastern culture. Tastes best with additional sides to it such as rice or potatoes.",
-    imageURL: "https://images.unsplash.com/photo-1634234498505-51b316832b28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=70"
-  },
-]
 
 export async function getDishes() {
   const menuItems = await notion.databases.query({
@@ -37,9 +23,23 @@ export async function getDishes() {
   })
 
   return menuItems.results.flatMap(item => {
-    if (item.properties.Name.title.length === 0 ||
-        item.properties.Description.rich_text.length === 0) {
+    if (!("properties" in item) ||
+        !("title" in item.properties.Name) ||
+        item.properties.Name.title.length === 0 ||
+        !("text" in item.properties.Name.title[0]) ||
+        !("rich_text" in item.properties.Description) ||
+        item.properties.Description.rich_text.length === 0 ||
+        !("url" in item.properties.ImageURL) || 
+        !("multi_select" in item.properties.Ingridients))
+      {
       return []
+    }
+
+    var imageURL: string | undefined
+    if (item.properties.ImageURL.url === null) {
+      imageURL = undefined
+    } else {
+      imageURL = item.properties.ImageURL.url
     }
 
     const dish: Dish = {
@@ -48,10 +48,8 @@ export async function getDishes() {
         item.name
       ),
       description: item.properties.Description.rich_text[0].plain_text,
-      imageURL: item.properties.ImageURL.url,
+      imageURL: imageURL,
     }
-
-    console.log(dish)
 
     return [dish]
   })
