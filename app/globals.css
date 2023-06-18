@@ -1,4 +1,5 @@
 :root {
+  --text-color: rgb(255, 255, 255);
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -8,13 +9,23 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --background-start-rgb: 20, 20, 20;
     --background-end-rgb: 0, 0, 0;
   }
 }
 
+html {
+  height: 100%;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
+  left: 0;
+  top: 0;
+  padding: 0;
+  margin: 0;
+  width: max(100vw, 100%);
+  min-height: 100%;
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
@@ -23,6 +34,7 @@ body {
 .dish-list {
   display: flex;
   padding: 10pt;
+  margin: 0pt;
   overflow: auto;
   overflow-x: scroll;
   white-space: nowrap;
@@ -30,12 +42,14 @@ body {
 
 .dish {
   margin: 10pt;
-  border-radius: 25pt;
+  border-radius: 5pt;
   position: relative;
-  min-width: 200pt;
-  min-height: 300pt;
+  width: 300pt;
+  height: 400pt;
+  min-width: 240pt;
+  min-height: 350pt;
   max-width: 300pt;
-  max-height: 450pt;
+  max-height: 400pt;
   overflow: hidden;
   box-shadow: 4pt 3pt 6pt var(--background-shadow);
   display: inline-block;
@@ -60,8 +74,7 @@ body {
   align-items: center;
   white-space: normal;
   background-color: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  padding: 20px;
+  padding: 0;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -75,6 +88,7 @@ body {
   left: 20pt;
   bottom: 20pt;
   font-size: 20pt;
+  color: var(--text-color);
 }
 
 .dish-shadow {
@@ -89,6 +103,8 @@ body {
 
 .dish-description {
   font-size: 14pt;
+  padding: 20pt;
+  color: var(--text-color);
 }
 
 h1 {
