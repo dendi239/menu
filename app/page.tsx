@@ -8,17 +8,22 @@ function DishMenuItem({ dish }: { dish: Dish; }) {
     <div className="dish">
       <img src={dish.imageURL} className='dish-image' />
       <div className="dish-shadow" />
-      <a className='dish-title'>{dish.name}</a>
       <div className="dish-overlay">
         <a className="dish-description">{dish.description}</a>
+        <ul className="dish-ingridients">
+          {dish.ingridients.map((ingridient, index) =>
+            <li key={index} className="dish-ingridient">{ingridient}</li>
+          )}
+        </ul>
       </div>
+      <a className='dish-title'>{dish.name}</a>
     </div>
   )
 }
 
 export default function Page() {
   const [dishes, setDishes] = useState<Dish[]>([]);
-  
+
   useEffect(() => {
     async function fill() {
       setDishes(await getDishes());

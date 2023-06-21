@@ -1,0 +1,192 @@
+:root {
+  --title-color: rgb(255, 255, 255);
+  --text-color: rgb(240, 240, 240);
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --background-shadow: rgb(20 20 20);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 20, 20, 20;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+html {
+  height: 100%;
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  left: 0;
+  top: 0;
+  padding: 0;
+  margin: 0;
+  width: max(100vw, 100%);
+  min-height: 100%;
+}
+
+.dish-list {
+  display: flex;
+  padding: 10pt;
+  margin: 0pt;
+  overflow: auto;
+  top: 50%;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.dish {
+  margin: 10pt;
+  border-radius: 5pt;
+  position: relative;
+  top: 0pt;
+  left: 0pt;
+
+  width: 300pt;
+  height: 400pt;
+  min-width: 240pt;
+  min-height: 350pt;
+  max-width: 300pt;
+  max-height: 400pt;
+  overflow: hidden;
+  box-shadow: 4pt 3pt 6pt var(--background-shadow);
+  display: inline-block;
+
+  // animation: 
+  //   dish-appearing-x 1.5s ease-out forwards,
+  //   dish-appearing-y 1.5s cubic-bezier(0.55, 0, 0.2, -5000) forwards;
+}
+
+@keyframes dish-appearing-x {
+  0% {
+    left: 100pt;
+  }
+  100% {
+    left: 0pt
+  }
+}
+
+@keyframes dish-appearing-y {
+  0% {
+    top: 100pt;
+  }
+  100% {
+    top: 0pt;
+  }
+}
+
+.dish-image {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dish-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: baseline;
+  white-space: normal;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 0;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease 0s;
+}
+
+.dish:hover .dish-overlay {
+  opacity: 1;
+}
+
+.dish-ingridients {
+  left: 0pt;
+  top: 0pt;
+}
+
+@for $i from 1 through 7 {
+  .dish-ingridient:nth-child(#{$i}) {
+    color: var(--text-color);
+    font-size: 13pt;
+    font-weight: 300;
+    position: relative;
+    margin: 4pt;
+    top: 30pt;
+    transform: translateY(100pt);
+    opacity: 0;
+    transition:
+      opacity 0.6s ease-out 0s,
+      transform 0.3s ease-in-out calc(0.3s + $i * 0.05s);
+  }
+
+  .dish:hover .dish-ingridient:nth-child(#{$i}) {
+    opacity: 1;
+    transform: translateY(0pt);
+  }
+}
+
+.dish-title {
+  position: absolute;
+  left: 20pt;
+  bottom: 20pt;
+  font-size: 20pt;
+  font-weight: 400;
+  color: var(--title-color);
+  transition-delay: 0.4s;
+  transition:
+    all 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+
+.dish:hover .dish-title {
+  font-weight: 500;
+  transform: translateY(calc(-400pt + 100% + 40pt));
+  transition-delay: 0s;
+}
+
+.dish-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  box-shadow: inset 0pt -30pt 60pt var(--background-shadow);
+}
+
+.dish-description {
+  font-size: 14pt;
+  padding: 20pt;
+  color: var(--text-color);
+  font-weight: 300;
+  position: relative;
+  top: 40pt;
+  opacity: 0;
+  transform: translateY(+100pt);
+  transition:
+    transform 0.2s ease-out 0.2s,
+    opacity 0.2s ease-out 0.2s;
+}
+
+.dish:hover .dish-description {
+  transform: translateY(0pt);
+  opacity: 1;
+}
+
+h1 {
+  font-size: 36pt;
+  margin: 40pt;
+  margin-bottom: 10pt;
+}

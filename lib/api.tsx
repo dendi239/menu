@@ -30,7 +30,10 @@ export async function getDishes() {
         !("rich_text" in item.properties.Description) ||
         item.properties.Description.rich_text.length === 0 ||
         !("url" in item.properties.ImageURL) || 
-        !("multi_select" in item.properties.Ingridients))
+        !("multi_select" in item.properties.Ingridients) ||
+        !("hidden" in item.properties) || 
+        !("checkbox" in item.properties.hidden) ||
+        item.properties.hidden.checkbox)
       {
       return []
     }
