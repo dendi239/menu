@@ -33,6 +33,7 @@ export default function Page() {
 
   return (
     <div>
+      <h1>Dicktails</h1>
       <ul className="dish-list">{
         Array.from(dishes.entries()).map(([i, dish]) =>
           <DishMenuItem key={i} dish={dish} />
