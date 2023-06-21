@@ -116,7 +116,7 @@ body {
   top: 0pt;
 }
 
-@for $i from 1 through 7 {
+@for $i from 0 through 7 {
   .dish-ingridient:nth-child(#{$i}) {
     color: var(--text-color);
     font-size: 13pt;
@@ -127,7 +127,7 @@ body {
     transform: translateY(100pt);
     opacity: 0;
     transition:
-      opacity 0.6s ease-out 0s,
+      opacity 0.2s ease-out calc(0.3s + $i * 0.05s),
       transform 0.3s ease-in-out calc(0.3s + $i * 0.05s);
   }
 
