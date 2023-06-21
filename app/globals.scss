@@ -50,11 +50,11 @@ body {
   left: 0pt;
 
   width: 300pt;
-  height: 400pt;
+  height: 350pt;
   min-width: 240pt;
   min-height: 350pt;
   max-width: 300pt;
-  max-height: 400pt;
+  max-height: 350pt;
   overflow: hidden;
   box-shadow: 4pt 3pt 6pt var(--background-shadow);
   display: inline-block;
@@ -128,7 +128,7 @@ body {
     opacity: 0;
     transition:
       opacity 0.2s ease-out calc(0.3s + $i * 0.05s),
-      transform 0.3s ease-in-out calc(0.3s + $i * 0.05s);
+      transform 0.3s ease-out calc(0.3s + $i * 0.05s);
   }
 
   .dish:hover .dish-ingridient:nth-child(#{$i}) {
@@ -152,7 +152,7 @@ body {
 
 .dish:hover .dish-title {
   font-weight: 500;
-  transform: translateY(calc(-400pt + 100% + 40pt));
+  transform: translateY(calc(-350pt + 100% + 40pt));
   transition-delay: 0s;
 }
 

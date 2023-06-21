@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 function DishMenuItem({ dish }: { dish: Dish; }) {
   return (
-    <div className="dish">
+    <a className="dish">
       <img src={dish.imageURL} className='dish-image' />
       <div className="dish-shadow" />
       <div className="dish-overlay">
@@ -17,7 +17,7 @@ function DishMenuItem({ dish }: { dish: Dish; }) {
         </ul>
       </div>
       <a className='dish-title'>{dish.name}</a>
-    </div>
+    </a>
   )
 }
 
